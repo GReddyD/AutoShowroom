@@ -4,7 +4,5 @@ Main.java
  Main
 Producer.java
  Producer
-Buyer.java
- Buyer
 AutoShowroom.java
  AutoShowroom

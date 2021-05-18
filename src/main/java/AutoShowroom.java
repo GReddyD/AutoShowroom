@@ -4,19 +4,32 @@ import java.util.List;
 
 public class AutoShowroom {
 	final int SIZE_LIST_AUTO = 10;
-	// Создаем объект производителя
-	private static Buyer buyer;
+	final int TIME_BUY = 3000;
+
 	Producer producer = new Producer(this);
 	List<Auto> autos = new ArrayList<>(SIZE_LIST_AUTO);
 
-	public AutoShowroom(Buyer buyer) {
-		this.buyer = buyer;
+	public AutoShowroom() {
+
 	}
 
-	public void sellAuto() {
+	public void sellAuto(){
+		synchronized (producer) {
+			System.out.println(Thread.currentThread().getName() + " зашел в автосалон");
+			try {
+				Thread.sleep(TIME_BUY);
+				producer.sellAuto();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println(Thread.currentThread().getName() + " уехал на новеньком авто");
+		}
+	}
+
+	public void acceptAuto() {
 		synchronized (producer) {
 			try {
-				producer.sellAuto();
+				producer.receiveAuto();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
