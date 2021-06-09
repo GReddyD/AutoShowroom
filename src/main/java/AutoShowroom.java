@@ -1,42 +1,44 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 public class AutoShowroom {
-	final int SIZE_LIST_AUTO = 10;
-	final int TIME_BUY = 3000;
 
-	Producer producer = new Producer(this);
-	List<Auto> autos = new ArrayList<>(SIZE_LIST_AUTO);
+	private final static int SELL_TIME = 2000;
+	public final static int PLAN_FOR_SALES = 10;
+	private final static int CREATE_AUTO = 2000;
+	private int cntProduceAuto = 0;
+	private int cntSalesAuto = 0;
 
-	public AutoShowroom() {
-
+	public int getSales() {
+		return cntSalesAuto;
+	}
+	public int getProduct() {
+		return cntProduceAuto;
 	}
 
-	public void sellAuto(){
-		synchronized (producer) {
-			System.out.println(Thread.currentThread().getName() + " зашел в автосалон");
-			try {
-				Thread.sleep(TIME_BUY);
-				producer.sellAuto();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+	public synchronized void saleAuto() {
+		try {
+			while (cntProduceAuto == 0) {
+				wait();
 			}
-			System.out.println(Thread.currentThread().getName() + " уехал на новеньком авто");
+			Thread.sleep(SELL_TIME);
+			cntProduceAuto--;
+			cntSalesAuto++;
+			notifyAll();
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 		}
+
 	}
 
-	public void acceptAuto() {
-		synchronized (producer) {
-			try {
-				producer.receiveAuto();
-			} catch (Exception e) {
-				e.printStackTrace();
+	public synchronized void createAuto() {
+		try {
+			while (cntProduceAuto > 0) {
+				wait();
 			}
+			Thread.sleep(CREATE_AUTO);
+			cntProduceAuto++;
+			System.out.println(Thread.currentThread().getName() + " выпустил авто");
+			notify();
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 		}
-	}
-
-	Collection<Auto> getAuto() {
-		return autos;
 	}
 }

@@ -1,4 +1,4 @@
 public class Auto {
-	public Auto() {
+	public Auto () {
 	}
 }
