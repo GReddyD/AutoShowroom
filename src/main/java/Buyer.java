@@ -1,8 +1,7 @@
-public class Consumer implements Runnable {
-
+public class Buyer implements Runnable{
 	AutoShowroom autoShowroom;
 
-	Consumer(AutoShowroom autoShowroom) {
+	Buyer(AutoShowroom autoShowroom) {
 		this.autoShowroom = autoShowroom;
 	}
 

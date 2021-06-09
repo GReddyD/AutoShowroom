@@ -35,7 +35,7 @@ public class AutoShowroom {
 			}
 			Thread.sleep(CREATE_AUTO);
 			cntProduceAuto++;
-			System.out.println(Thread.currentThread().getName() + " выпустил авто");
+			System.out.println(Thread.currentThread().getName() + " выпустил 1 авто");
 			notify();
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
