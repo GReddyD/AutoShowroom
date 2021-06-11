@@ -1,8 +1,6 @@
 public class AutoShowroom {
 
-	private final static int SELL_TIME = 2000;
 	public final static int PLAN_FOR_SALES = 10;
-	private final static int CREATE_AUTO = 2000;
 	private int cntProduceAuto = 0;
 	private int cntSalesAuto = 0;
 
@@ -18,7 +16,6 @@ public class AutoShowroom {
 			while (cntProduceAuto == 0) {
 				wait();
 			}
-			Thread.sleep(SELL_TIME);
 			cntProduceAuto--;
 			cntSalesAuto++;
 			notifyAll();
@@ -33,7 +30,6 @@ public class AutoShowroom {
 			while (cntProduceAuto > 0) {
 				wait();
 			}
-			Thread.sleep(CREATE_AUTO);
 			cntProduceAuto++;
 			System.out.println(Thread.currentThread().getName() + " выпустил 1 авто");
 			notify();
